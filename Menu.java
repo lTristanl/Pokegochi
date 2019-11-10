@@ -17,7 +17,7 @@ frame = new JFrame ("Pokegochi");
 start = new JButton ("Start");
 
 frame.add
-
+start.add
 
 frame.setVisible(true);
 frame.setSize(600,600);

@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.filechooser.*;
 import java.io.*;   
 public class Menu{
-Label lb;
 JButton start;
 JFrame  frame;
 

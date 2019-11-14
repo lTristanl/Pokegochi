@@ -5,11 +5,11 @@ import javax.swing.*;
 public class Select extends WindowAdapter implements ActionListener{
 
 JFrame frame;
-JPanel panel_options,panel_tittle,panel_select;
-//JButton accept, cancel;
+JPanel panel_select;
 CheckboxGroup checkbox;
 JCheckBox charmander, squirtle, bulbasaur;
 GridLayout grid;
+JPanelBackground back;
 
 public Select(){
     
@@ -17,42 +17,37 @@ public Select(){
 
 public void select(){
     frame = new JFrame("Pokegochi");
-    panel_options = new JPanel();
     panel_select = new JPanel();
     grid = new GridLayout(1,3);
-    /*accept = new JButton("Aceptar");
-    cancel = new JButton("Cancelar");
-    */
+    back =new JPanelBackground(".\\Image\\fondo\\landscape.png");
+
     charmander = new JCheckBox("Charmander",new ImageIcon(getClass().getResource("\\Image\\Charmander.png")),false);
     squirtle = new JCheckBox("Squirtle",new ImageIcon(getClass().getResource("\\Image\\Squirtle.png")),false);
     bulbasaur = new JCheckBox("Bulbasaur",new ImageIcon(getClass().getResource("\\Image\\Bulbasaur.png")),false);
-    /*
-    accept.setContentAreaFilled(false);
-    cancel.setContentAreaFilled(false);
-    accept.setBorderPainted(false); 
-    cancel.setBorderPainted(false); 
-    */
+
+    frame.add(back);
+    //frame.add(back,BorderLayout.CENTER);
+    frame.addWindowListener(this);
     frame.setLayout(new BorderLayout());
-    panel_select.setLayout(grid);
+    back.setLayout(grid);
+    frame.setContentPane(back);
+    back.add(charmander);
+    back.add(squirtle);
+    back.add(bulbasaur);
     charmander.addActionListener(this); 
     squirtle.addActionListener(this); 
     bulbasaur.addActionListener(this); 
-    /*
-    accept.addActionListener(this); 
-    cancel.addActionListener(this); 
-    */
-    frame.add(panel_options,BorderLayout.SOUTH);
-    frame.add(panel_select,BorderLayout.CENTER);
-    frame.addWindowListener(this);
-    panel_select.add(charmander);
-    panel_select.add(squirtle);
-    panel_select.add(bulbasaur);
-    /*panel_options.add(accept);
-    panel_options.add(cancel);  
-    */
+    
+    charmander.setContentAreaFilled(false);
+    charmander.setBorderPainted(false);
+    squirtle.setContentAreaFilled(false);
+    squirtle.setBorderPainted(false);
+    bulbasaur.setContentAreaFilled(false);
+    bulbasaur.setBorderPainted(false);
     frame.setVisible(true);
     frame.setSize(600,600);
     frame.setLocationRelativeTo(null);
+    frame.setResizable(false);
 }
 
 public void actionPerformed (ActionEvent e){
@@ -60,7 +55,7 @@ public void actionPerformed (ActionEvent e){
         int answer = JOptionPane.showConfirmDialog(null,"¿Seleccionarás a Charmander?");
         if (answer ==JOptionPane.YES_OPTION){
         Charmander charmander = new Charmander();
-        charmander.Start(); 
+        charmander.Start();
         }
     }
     if(e.getSource().equals(squirtle)){
@@ -80,6 +75,27 @@ public void actionPerformed (ActionEvent e){
 
     }
 
+    public class JPanelBackground extends JPanel {
+        private Image background;
+          public JPanelBackground(String imagePath){
+             setBackground(imagePath);
+          }
+            public void paintComponent(Graphics g) {
+              int width = this.getSize().width;
+              int height = this.getSize().height;
+              if (this.background != null) {
+                g.drawImage(this.background, 0, 0, width, height, null);
+              }
+              super.paintComponent(g);
+            }
+        
+            public void setBackground(String ruta) {
+              this.setOpaque(false);
+              this.background = new ImageIcon(ruta).getImage();
+              repaint();
+            }
+           
+          }
 public void windowClosing (WindowEvent e){
     System.exit(0);
 }
